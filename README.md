@@ -1,6 +1,6 @@
 # Expression Detector
 
-A real-time facial expression and emotion detector using your laptop's camera.
+A real-time facial expression and emotion detector using laptop's camera.
 
 ## Features
 - **Real-time emotion detection**: Detects happy, sad, angry, surprised, feared, disgusted, and neutral expressions
