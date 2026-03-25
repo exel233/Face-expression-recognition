@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expression Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 Expression Detector</h1>
+            <p class="subtitle">Real-time Facial Expression & Landmark Detection</p>
+        </header>
+
+        <main>
+            <div class="video-container">
+                <img id="videoFeed" src="{{ url_for('video_feed') }}" alt="Live video feed" class="video-stream" />
+                <div class="overlay-info">
+                    <div class="info-box">
+                        <span class="label">FPS:</span>
+                        <span id="fps" class="value">0</span>
+                    </div>
+                    <div class="info-box">
+                        <span class="label">Emotion:</span>
+                        <span id="emotion" class="value">--</span>
+                    </div>
+                    <div class="info-box">
+                        <span class="label">Confidence:</span>
+                        <span id="confidence" class="value">0%</span>
+                    </div>
+                    <div class="info-box">
+                        <span class="label">Landmarks:</span>
+                        <span id="landmarks" class="value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-section">
+                <h2>Status</h2>
+                <div class="status-panel">
+                    <div class="status-item">
+                        <span class="status-label">Camera Status:</span>
+                        <span id="cameraStatus" class="status-value status-error">
+                            ⚪ Connecting...
+                        </span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Detection:</span>
+                        <span id="detectionStatus" class="status-value status-inactive">
+                            ⭕ Detecting...
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stats-panel">
+                    <h3>Real-time Statistics</h3>
+                    <div class="emotion-card">
+                        <div class="emotion-label">Detected Emotion</div>
+                        <div class="emotion-display" id="emotionDisplay">
+                            <span id="emotionText">--</span>
+                        </div>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill"></div>
+                        </div>
+                        <div class="confidence-text" id="confidenceText">0% confidence</div>
+                        <div class="stability-legend">
+                            <span class="legend-item"><span style="color: #4CAF50;">✓</span> Stable</span>
+                            <span class="legend-item"><span style="color: #FFC107;">~</span> Detecting</span>
+                        </div>
+                    </div>
+                    <div class="ancestor-panel">
+                        <div class="anc-label">Emotion probability rank</div>
+                        <ol id="emotionRankList" class="emotion-rank-list">
+                            <li>--</li>
+                            <li>--</li>
+                            <li>--</li>
+                        </ol>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Average FPS</div>
+                            <div class="stat-value" id="avgFps">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Total Frames</div>
+                            <div class="stat-value" id="totalFrames">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Avg Processing Time</div>
+                            <div class="stat-value" id="avgProcessing">0ms</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Peak FPS</div>
+                            <div class="stat-value" id="peakFps">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-panel">
+                    <h3>Settings</h3>
+                    <div class="setting-group">
+                        <label for="updateInterval">Update Interval (ms):</label>
+                        <input type="number" id="updateInterval" min="100" max="5000" value="500" step="100">
+                    </div>
+                    <button id="refreshBtn" class="btn btn-primary">Refresh Stats</button>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>ℹ️ How to Use</h2>
+                <ul>
+                    <li>Position your face in front of the camera</li>
+                    <li>The app will automatically detect your facial landmarks</li>
+                    <li>Landmarks are displayed as dots on your face in real-time</li>
+                    <li>FPS and processing metrics are updated continuously</li>
+                    <li>Make sure your camera is properly connected and permissions are granted</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer>
+            <p>Expression Detector v1.0 | Powered by Flask, OpenCV, MediaPipe</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
